@@ -1,35 +1,51 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+// import reactLogo from './assets/react.svg'
+// import viteLogo from '/vite.svg'
 import './App.css'
+import Section from './Section'
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [name, setName] = useState('John Doe');
+  const [email, setEmail] = useState('sample@mail.com');
+  const [phone, setPhone] = useState('123456789');
+  
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className='input-section'>
+      <Section>
+        <h2>Informação geral</h2>
+        <form onSubmit={(e)=>{
+          e.preventDefault()
+        }
+          }>
+          <label htmlFor="name">Nome</label>
+          <input type="text" name='name' onChange={e => setName(e.target.value)}></input>
+
+          <label htmlFor="email">Email</label>
+          <input type="text" name='email' onChange={e => setEmail(e.target.value)}></input>
+          <label htmlFor="phone-number">Telefone</label>
+          <input type="tel" name='phone-number' onChange={e => setPhone(e.target.value)}></input>
+
+          <input type="submit" value="Enviar" />
+        </form>
+        
+
+      </Section>
+
+      <Section>
+        <h2>Formação acadêmica</h2>
+      </Section>
+
+      <Section>
+        <h2>Experiência profisisonal</h2>
+      </Section>
+
+      <div className='curriculum'>
+          <p>{name}</p>
+          <p>{email}</p>
+          <p>{phone}</p>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
 }
 
-export default App

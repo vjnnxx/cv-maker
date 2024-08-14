@@ -2,7 +2,9 @@ import { useState } from 'react'
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 import './App.css'
-import Section from './Section'
+import Section from './Section';
+import EduForm from './EduForm';
+import ProfessionalForm from './ProfessionalForm';
 
 export default function App() {
   const [name, setName] = useState('John Doe');
@@ -11,34 +13,39 @@ export default function App() {
   
 
   return (
-    <div className='input-section'>
-      <Section>
-        <h2>Informação geral</h2>
-        <form onSubmit={(e)=>{
-          e.preventDefault()
-        }
-          }>
-          <label htmlFor="name">Nome</label>
-          <input type="text" name='name' onChange={e => setName(e.target.value)}></input>
+    <div className='main'>
 
-          <label htmlFor="email">Email</label>
-          <input type="text" name='email' onChange={e => setEmail(e.target.value)}></input>
-          <label htmlFor="phone-number">Telefone</label>
-          <input type="tel" name='phone-number' onChange={e => setPhone(e.target.value)}></input>
+      <div className='input-section'>
+        <Section>
+          <h2>Informação geral</h2>
+          <form className='form' onSubmit={(e)=>{ e.preventDefault() }}>
+            <label htmlFor="name">Nome</label>
+            <input type="text" name='name' onChange={e => setName(e.target.value)}></input>
 
-          <input type="submit" value="Enviar" />
-        </form>
-        
+            <label htmlFor="email">Email</label>
+            <input type="text" name='email' onChange={e => setEmail(e.target.value)}></input>
 
-      </Section>
+            <label htmlFor="phone-number">Telefone</label>
+            <input type="tel" name='phone-number' onChange={e => setPhone(e.target.value)}></input>
 
-      <Section>
-        <h2>Formação acadêmica</h2>
-      </Section>
+            <input type="submit" value="Adiiconar" />
+          </form>
+          
 
-      <Section>
-        <h2>Experiência profisisonal</h2>
-      </Section>
+        </Section>
+
+        <Section>
+          <h2>Formação acadêmica</h2>
+          <EduForm></EduForm>
+          
+        </Section>
+
+        <Section>
+          <h2>Experiência profisisonal</h2>
+          <ProfessionalForm></ProfessionalForm>
+        </Section>
+      </div>
+      
 
       <div className='curriculum'>
           <p>{name}</p>

@@ -1,9 +1,12 @@
-.input-section{
-  
-}
-
 .form{
   display: flex;
   flex-direction: column;
   width: 500px;
 }
+
+.curriculum{
+  border: 1px solid grey;
+  width: 750px;
+  padding: 16px;
+}
+

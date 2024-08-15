@@ -1,6 +1,6 @@
 import { Children } from "react";
 
-function Section({children}){
+export default function Section({children}){
 
     const childrenList = Children.map(children, child =>
         <div>
@@ -9,10 +9,9 @@ function Section({children}){
     );
 
     return (
-        <>
+        <div  style={{display: "flex", flexDirection: 'column', alignItems: 'center'}}>
             {childrenList}
-        </>
+        </div>
     )
 }
 
-export default Section;

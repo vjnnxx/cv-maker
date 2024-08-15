@@ -13,13 +13,20 @@ export default function App() {
   const [phone, setPhone] = useState('123456789');
 
   const [education, setEducation] = useState([]);
+  const [experience, setExperience] = useState([]);
 
 
   //State com lista de formações / experiências
 
   const addEducation = (values) =>{
     values.id = uuidv4();
-    setEducation([...education, values])
+    setEducation([...education, values]);
+  }
+
+  const addExperience = (values) => {
+    values.id = uuidv4();
+    setExperience([...experience, values]);
+    console.log(values)
   }
   
 
@@ -49,7 +56,7 @@ export default function App() {
 
         <Section>
           <h2>Experiência profisisonal</h2>
-          <ProfessionalForm></ProfessionalForm>
+          <ProfessionalForm onClick={addExperience}></ProfessionalForm>
         </Section>
       </div>
       
@@ -76,7 +83,14 @@ export default function App() {
           </div>
 
           <div className='profesisonal'>
-            <h2>Experiência profisisonal</h2> 
+            <h2>Experiência profisisonal</h2>
+            {experience.map((element)=> 
+                <div key={element.id}>
+                  <strong>{element.startDate.split('-')[0]} - {element.endDate.split('-')[0]} | {element.companyName}</strong>
+                  <p>{element.position}</p>
+                  <p>{element.responsabilities}</p>
+                </div>    
+              )}
           </div>
       </div>
     </div>

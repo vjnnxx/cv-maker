@@ -8,6 +8,19 @@
   justify-content: space-around;
 }
 
+.newEntry{
+  width: 100%;
+}
+
+.edit-list{
+  display: flex;
+  justify-content: space-between;
+}
+
+.edit-list>button{
+  border: none;
+  background-color: #fff;
+}
 /* #root {
   max-width: 1280px;
   margin: 0 auto;

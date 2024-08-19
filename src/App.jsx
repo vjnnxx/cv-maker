@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid';
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
 import './App.css'
 import Section from './Section';
 import EduForm from './EduForm';
 import ProfessionalForm from './ProfessionalForm';
+import Icon from '@mdi/react';
+import { mdilPencil } from '@mdi/light-js';
 
 export default function App() {
   const [name, setName] = useState('Fulano da Silva');
@@ -15,19 +15,75 @@ export default function App() {
   const [education, setEducation] = useState([]);
   const [experience, setExperience] = useState([]);
 
+  const [eduActive, setEduActive] = useState(false);
+  const [professionalActive, setProfessionalActive] = useState(false);
 
-  //State com lista de formações / experiências
+  const [eduEdit, setEduEdit] = useState(0);
+  const [eduID, setEduID] = useState('');
+
+
+  //State para mostrar listas / formularios quando cliclar / enviar
 
   const addEducation = (values) =>{
     values.id = uuidv4();
     setEducation([...education, values]);
+    toggleEdu();
   }
 
   const addExperience = (values) => {
     values.id = uuidv4();
     setExperience([...experience, values]);
-    console.log(values)
+    toggleProfessional();
   }
+
+  const toggleEdu = () => {
+    setEduActive(!eduActive);
+  }
+
+  const toggleProfessional = () => {
+    setProfessionalActive(!professionalActive);
+  }
+
+  function editView (value) {
+
+    setEduEdit(1);
+    setEduID(value);
+
+    const eduArray = education.filter((item) => item.id === value);
+    
+    toggleEdu();
+    
+    setTimeout(() => { 
+      const instituition = document.querySelector('#institution');
+      instituition.value = eduArray[0].instituition;
+
+      const formationTitle = document.querySelector('#formation-title');
+      formationTitle.value = eduArray[0].formation;
+
+      const startDate = document.querySelector('#start-date');
+      startDate.value = eduArray[0].startDate;
+
+      const endDate = document.querySelector('#end-date');
+      endDate.value = eduArray[0].endDate;
+    }, 500);
+  }
+
+  const editEducation = (editedObj) =>{
+  
+    const newArray = education.map((item) => {
+      if (item.id === editedObj.id){
+        return editedObj
+      } else {
+        return item
+      }
+    });
+
+    setEducation(newArray);
+    toggleEdu();
+    setEduEdit(0);
+  }
+
+
   
 
   return (
@@ -50,13 +106,47 @@ export default function App() {
 
         <Section>
           <h2>Formação acadêmica</h2>
-          <EduForm onClick={addEducation}></EduForm>
-          
+          {eduActive ? (
+            eduEdit === 0 ? (
+              <EduForm onClick={addEducation} cancel={toggleEdu}></EduForm>
+            ) : (
+              <EduForm onClick={editEducation} cancel={toggleEdu} obj={education.filter((item) => item.id === eduID)}></EduForm>
+            )
+            
+          ) : (
+            <div>
+              {education.map(item => 
+              <div key={item.id} className='edit-list'> 
+                <h2 > {item.instituition} </h2>
+                <button onClick={() => editView(item.id)}>
+                  <Icon path={mdilPencil} size={1} />
+                </button>
+              </div>
+              )}
+              
+              
+              <button onClick={toggleEdu} className='newEntry'>Adicionar</button>
+            </div>       
+          )}
         </Section>
+        
 
         <Section>
           <h2>Experiência profisisonal</h2>
-          <ProfessionalForm onClick={addExperience}></ProfessionalForm>
+          {professionalActive ? (
+            <ProfessionalForm onClick={addExperience}></ProfessionalForm>
+          ) : (
+            <div>
+              {experience.map(item => 
+              <div key={item.id}>
+                <h2 > {item.companyName} </h2>
+                <button>Editar</button>
+              </div>
+              
+              )} 
+              <button onClick={toggleProfessional} className='newEntry'>Adicionar</button>
+            </div>       
+          )}
         </Section>
       </div>
       

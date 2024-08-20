@@ -25,7 +25,18 @@ export default function App() {
   const [profesisonalID, setProfessionalID] = useState('');
 
 
-  //State para mostrar listas / formularios quando cliclar / enviar
+  const handlePhone = (event) => {
+    let input = event.target
+    input.value = phoneMask(input.value)
+  }
+  
+  const phoneMask = (value) => {
+    if (!value) return ""
+    value = value.replace(/\D/g,'')
+    value = value.replace(/(\d{2})(\d)/,"($1) $2")
+    value = value.replace(/(\d)(\d{4})$/,"$1-$2")
+    return value
+  }
 
   const addEducation = (values) =>{
     values.id = uuidv4();
@@ -145,7 +156,7 @@ export default function App() {
             <input type="text" name='email' onChange={e => setEmail(e.target.value)} placeholder='sample@mail.com'/>
 
             <label htmlFor="phone-number">Telefone</label>
-            <input type="tel" name='phone-number' onChange={e => setPhone(e.target.value)} placeholder='123456789'/>
+            <input type="tel" name='phone-number' onChange={e => setPhone(e.target.value)} placeholder='(12)3456789' maxLength={15} onKeyUp={(e) => handlePhone(e)}/>
           </form>
         </Section>
 

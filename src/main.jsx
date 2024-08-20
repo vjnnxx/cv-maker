@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
-import './index.css'
+import './styles/index.css'
 
 // Componentes: seções pra adicionar inputs / inputs / Vizualização do CV
 

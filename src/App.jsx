@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid';
-import './App.css'
-import Section from './Section';
-import EduForm from './EduForm';
-import ProfessionalForm from './ProfessionalForm';
+import './styles/App.css'
+import Section from './components/Section';
+import EduForm from './components/EduForm';
+import ProfessionalForm from './components/ProfessionalForm';
 import Icon from '@mdi/react';
 import { mdilPencil } from '@mdi/light-js';
 
@@ -20,6 +20,9 @@ export default function App() {
 
   const [eduEdit, setEduEdit] = useState(0);
   const [eduID, setEduID] = useState('');
+
+  const [professionalEdit, setProfessionalEdit] = useState(0);
+  const [profesisonalID, setProfessionalID] = useState('');
 
 
   //State para mostrar listas / formularios quando cliclar / enviar
@@ -44,7 +47,7 @@ export default function App() {
     setProfessionalActive(!professionalActive);
   }
 
-  function editView (value) {
+  const educationEditView =  (value) => {
 
     setEduEdit(1);
     setEduID(value);
@@ -68,6 +71,33 @@ export default function App() {
     }, 500);
   }
 
+  const professionalEditView = (value) => {
+
+    setProfessionalEdit(1);
+    setProfessionalID(value);
+
+    const professionalArray = experience.filter((item) => item.id === value);
+    
+    toggleProfessional();
+    
+    setTimeout(() => { 
+      const companyName = document.querySelector('#company-name');
+      companyName.value = professionalArray[0].companyName;
+
+      const position = document.querySelector('#position-title');
+      position.value = professionalArray[0].position;
+
+      const responsabilities = document.querySelector('#responsabilities');
+      responsabilities.value = professionalArray[0].responsabilities;
+
+      const startDate = document.querySelector('#start-date');
+      startDate.value = professionalArray[0].startDate;
+
+      const endDate = document.querySelector('#end-date');
+      endDate.value = professionalArray[0].endDate;
+    }, 500);
+  }
+
   const editEducation = (editedObj) =>{
   
     const newArray = education.map((item) => {
@@ -81,6 +111,21 @@ export default function App() {
     setEducation(newArray);
     toggleEdu();
     setEduEdit(0);
+  }
+
+  const editExperience = (editedObj) =>{
+  
+    const newArray = experience.map((item) => {
+      if (item.id === editedObj.id){
+        return editedObj
+      } else {
+        return item
+      }
+    });
+
+    setExperience(newArray);
+    toggleProfessional();
+    setProfessionalEdit(0);
   }
 
 
@@ -118,7 +163,7 @@ export default function App() {
               {education.map(item => 
               <div key={item.id} className='edit-list'> 
                 <h2 > {item.instituition} </h2>
-                <button onClick={() => editView(item.id)}>
+                <button onClick={() => educationEditView(item.id)}>
                   <Icon path={mdilPencil} size={1} />
                 </button>
               </div>
@@ -134,13 +179,18 @@ export default function App() {
         <Section>
           <h2>Experiência profisisonal</h2>
           {professionalActive ? (
-            <ProfessionalForm onClick={addExperience}></ProfessionalForm>
+            professionalEdit === 0 ? (
+              <ProfessionalForm onClick={addExperience} cancel={toggleProfessional}></ProfessionalForm>
+            ) : (
+              <ProfessionalForm onClick={editExperience} cancel={toggleProfessional} obj={experience.filter((item) => item.id === profesisonalID)}></ProfessionalForm>
+            )
+            
           ) : (
             <div>
               {experience.map(item => 
-              <div key={item.id}>
+              <div key={item.id} className='edit-list'>
                 <h2 > {item.companyName} </h2>
-                <button>Editar</button>
+                <button onClick={()=> professionalEditView(item.id)}><Icon path={mdilPencil} size={1} /></button>
               </div>
               
               )} 

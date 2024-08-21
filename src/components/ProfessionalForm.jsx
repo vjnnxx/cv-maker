@@ -28,13 +28,17 @@ export default function ProfessionalForm({onClick, cancel, obj=null}){
                 <label htmlFor="end-date">Data de termino</label>
                 <input type="date" name='end-date' id="end-date" onChange={e => setEndDate(e.target.value)}/>
 
-                {obj === null ? (
-                    <button onClick={() => onClick({companyName, position, responsabilities, startDate, endDate})} id="edu-button">Adicionar</button>
-                ) : (
-                    <button onClick={() => onClick({companyName, position, responsabilities, startDate, endDate, id: obj.id })} id="edu-button">Editar</button>
-                )}
+                <div className="form-buttons">
+                    {obj === null ? (
+                        <button onClick={() => onClick({companyName, position, responsabilities, startDate, endDate})} id="edu-button" className="add">Adicionar</button>
+                    ) : (
+                        <button onClick={() => onClick({companyName, position, responsabilities, startDate, endDate, id: obj.id })} id="edu-button" className="add">Editar</button>
+                    )}
 
-                <button onClick={cancel}>Cancelar</button>
+                    <button onClick={cancel} className="cancel">Cancelar</button>
+                </div>
+
+                
             </form>
         </div>
     )

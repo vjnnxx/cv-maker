@@ -1,3 +1,31 @@
+@font-face {
+  font-family: Roboto;
+  src: url('../fonts/Roboto-Regular.ttf');
+}
+
+* {
+  font-family: Roboto;
+}
+
+input, button{
+  border: none;
+}
+
+
+button{
+  font-size: 20px;
+  padding: 12px;
+}
+
+
+.add{
+  background-color: rgb(27, 151, 252);
+}
+
+.cancel{
+  background-color: rgb(248, 52, 18);
+}
+
 .form{
   display: flex;
   flex-direction: column;
@@ -21,6 +49,51 @@
   border: none;
   background-color: #fff;
 }
+
+.curriculum{
+  width: 750px;
+  padding: 16px;
+}
+
+.top{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  background-color: #7467b2;
+  padding: 16px;
+}
+
+.top-info{
+  display: flex;
+}
+
+.info-cell{
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.section-header{
+  background-color: rgb(235, 230, 230);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.form-buttons{
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px;
+}
+
+
+
+
 /* #root {
   max-width: 1280px;
   margin: 0 auto;

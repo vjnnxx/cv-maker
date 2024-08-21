@@ -5,7 +5,8 @@ import Section from './components/Section';
 import EduForm from './components/EduForm';
 import ProfessionalForm from './components/ProfessionalForm';
 import Icon from '@mdi/react';
-import { mdilPencil } from '@mdi/light-js';
+import { mdilPencil} from '@mdi/light-js';
+import { mdiPhone, mdiAt } from '@mdi/js';
 
 export default function App() {
   const [name, setName] = useState('Fulano da Silva');
@@ -34,7 +35,6 @@ export default function App() {
     if (!value) return ""
     value = value.replace(/\D/g,'')
     value = value.replace(/(\d{2})(\d)/,"($1) $2")
-    value = value.replace(/(\d)(\d{4})$/,"$1-$2")
     return value
   }
 
@@ -213,36 +213,59 @@ export default function App() {
       
 
       <div className='curriculum'>
-          <h1>{name}</h1>
           
-          <p>{email}</p>
-          <p>{phone}</p>
+          <div className='top'>
+            <h1>{name}</h1>
 
-          <hr />
+            <div className='top-info'>
 
-          <div className='academic'>
-            <h2>Formação Acadêmica</h2>         
-              {education.map((element)=> 
-                <div key={element.id}>
-                  <strong>{element.startDate.split('-')[0]} - {element.endDate.split('-')[0]} | {element.instituition}</strong>
-                  <p>{element.formation}</p>
-                </div>    
-              )}
-           {/* Transformar div de form em lista de formações clicáveis para edição */}
-          
+              <div className="info-group">
+                <div className='info-cell'> 
+                  <Icon path={mdiAt} size={1} />
+                  <p> {email}</p>
+                </div>
 
+                <div className='info-cell'>
+                  <Icon path={mdiPhone} size={1} />
+                  <p> {phone}</p>
+                </div>
+              </div>
+
+              
+            </div>
           </div>
 
-          <div className='profesisonal'>
-            <h2>Experiência profisisonal</h2>
-            {experience.map((element)=> 
-                <div key={element.id}>
-                  <strong>{element.startDate.split('-')[0]} - {element.endDate.split('-')[0]} | {element.companyName}</strong>
-                  <p>{element.position}</p>
-                  <p>{element.responsabilities}</p>
-                </div>    
-              )}
+          <div className='content'>
+            <div className='academic'>
+
+              <div className='section-header'>
+                <h2>Formação Acadêmica</h2>
+              </div>
+                       
+                {education.map((element)=> 
+                  <div key={element.id}>
+                    <strong>{element.startDate.split('-')[0]} - {element.endDate.split('-')[0]} | {element.instituition}</strong>
+                    <p>{element.formation}</p>
+                  </div>    
+                )}
+            </div>
+
+            <div className='profesisonal'>
+              <div className="section-header">
+                <h2>Experiência profisisonal</h2>
+              </div>
+              
+              {experience.map((element)=> 
+                  <div key={element.id}>
+                    <strong>{element.startDate.split('-')[0]} - {element.endDate.split('-')[0]} | {element.companyName}</strong>
+                    <p>{element.position}</p>
+                    <p>{element.responsabilities}</p>
+                  </div>    
+                )}
+            </div>
           </div>
+
+          
       </div>
     </div>
   )

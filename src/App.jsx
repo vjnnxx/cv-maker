@@ -143,6 +143,8 @@ export default function App() {
   
 
   return (
+
+    <>
     <div className='main'>
 
       <div className='input-section'>
@@ -210,7 +212,7 @@ export default function App() {
           )}
         </Section>
       </div>
-      
+
 
       <div className='curriculum'>
           
@@ -241,7 +243,7 @@ export default function App() {
               <div className='section-header'>
                 <h2>Formação Acadêmica</h2>
               </div>
-                       
+                      
                 {education.map((element)=> 
                   <div key={element.id}>
                     <strong>{element.startDate.split('-')[0]} - {element.endDate.split('-')[0]} | {element.instituition}</strong>
@@ -264,10 +266,14 @@ export default function App() {
                 )}
             </div>
           </div>
-
-          
       </div>
     </div>
+
+    <footer className='footer'> 
+      <p>made by <a href="https://github.com/vjnnxx" target='_blank'>vjnnxx</a></p>
+    </footer>
+    </>
+    
   )
 }
 
